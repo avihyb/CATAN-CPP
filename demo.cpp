@@ -57,6 +57,7 @@ int main()
 
     // p1 has wood,bricks, and wheat, p2 has wood, ore, and wool, p3 has ore, wool, wheat.
     p1.rollDice();                                    // Lets say it's print 4. Then, p2 gets ore from the mountations.
+    
     p1.placeRoad({"Forest", "Hills"}, {5, 6}, board); // p1 continues to build a road.
     p1.endTurn();                                     // p1 ends his turn.
 
