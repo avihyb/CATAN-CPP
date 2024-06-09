@@ -8,11 +8,14 @@ namespace ariel{
         private:
             int vertexNum;
             bool settlement;
+            std::string owner;
             
         public:
             Vertex(int vertexNum);
-            void buildSettlement();
+            int getVertexNum();
+            void buildSettlement(const std::string& playerName);
             bool hasSettlement();
+            std::string getOwner();
     };
 }
 

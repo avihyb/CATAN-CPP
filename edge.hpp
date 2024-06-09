@@ -6,13 +6,16 @@ namespace ariel{
     class Edge{
         
         private:
-            Vertex v;
-            Vertex u;
+            Vertex* v;
+            Vertex* u;
             bool road;
+            std::string owner;
             
         public:
-            Edge(Vertex& v, Vertex& u);
-            void buildRoad();
+            Edge(Vertex* v, Vertex* u);
+            int getV();
+            int getU();
+            void buildRoad(std::string playerName);
             bool hasRoad();
     };
 

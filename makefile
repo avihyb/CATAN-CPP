@@ -1,29 +1,16 @@
-# Compiler
-CXX := g++
+CXX=g++
+CXXFLAGS=-std=c++11 -Werror
 
-# Compiler flags
-CXXFLAGS := -std=c++11 -Wall -Wextra
+SOURCESDEMO= board.cpp catan.cpp tile.cpp player.cpp vertex.cpp edge.cpp demo.cpp
 
-# Source files
-SRCS := board.cpp catan.cpp edge.cpp vertex.cpp player.cpp demo.cpp
+all: demo
+	./demo
 
-# Object files
-OBJS := $(SRCS:.cpp=.o)
+demo: $(SOURCESDEMO:.cpp=.o)
+	$(CXX) $(CXXFLAGS) $^ -o demo
 
-# Executable
-EXE := demo
-
-# Default target
-all: $(EXE)
-
-# Compile source files into object files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Link object files into executable
-$(EXE): $(OBJS)
-	$(CXX) $(CXXFLAGS) $^ -o $@
-
-# Clean up object files and executable
 clean:
-	rm -f $(OBJS) $(EXE)
+	rm -f *.o demo

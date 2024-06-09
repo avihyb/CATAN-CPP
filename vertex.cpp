@@ -5,13 +5,23 @@ namespace ariel {
     Vertex::Vertex(int vertexNum) {
         this->vertexNum = vertexNum;
         this->settlement = false;
+        this->owner = "";
     }
 
-    void Vertex::buildSettlement() {
+    int Vertex::getVertexNum() {
+        return this->vertexNum;
+    }
+
+    void Vertex::buildSettlement(const std::string& playerName) {
         this->settlement = true;
+        this->owner = playerName;
     }
 
     bool Vertex::hasSettlement() {
         return this->settlement;
+    }
+
+    std::string Vertex::getOwner() {
+        return this->owner;
     }
 }
