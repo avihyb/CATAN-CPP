@@ -5,6 +5,11 @@
 #include "vertex.hpp"
 #include "edge.hpp"
 #include "tile.hpp"
+#include "developmentCard.hpp"
+#include "knightsCard.hpp"
+#include "victoryCard.hpp"
+#include "promotionCard.hpp"
+
 
 namespace ariel {
     Catan::Catan(Player* p1, Player* p2, Player* p3) {
@@ -144,6 +149,29 @@ namespace ariel {
         this->board.addTile(t17);
         this->board.addTile(t18);
         this->board.addTile(t19);
+        
+        knightsCard* knightCard;
+        
+        promotionCard* promotionCard1;
+        promotionCard* promotionCard2;
+        promotionCard* promotionCard3;
+
+        victoryCard* victoryCard1;
+        victoryCard* victoryCard2;
+        victoryCard* victoryCard3;
+        victoryCard* victoryCard4;
+        victoryCard* victoryCard5;
+
+        developmentCards.push_back(knightCard);
+        developmentCards.push_back(promotionCard1);
+        developmentCards.push_back(promotionCard2);
+        developmentCards.push_back(promotionCard3);
+        developmentCards.push_back(victoryCard1);
+        developmentCards.push_back(victoryCard2);
+        developmentCards.push_back(victoryCard3);
+        developmentCards.push_back(victoryCard4);
+        developmentCards.push_back(victoryCard5);
+
     }
 
     Board Catan::getBoard() {
@@ -183,8 +211,10 @@ namespace ariel {
             getResources(this->players[0]);
             getResources(this->players[1]);
             getResources(this->players[2]);
+        } 
 
-        }
+        
+
     }
 
     bool Catan::finishedInitialization() {
@@ -193,7 +223,7 @@ namespace ariel {
                 return false;
             }
         }
-        firstRound = true;
+        
         return true;
     }
 
@@ -229,5 +259,45 @@ namespace ariel {
             p->setResources(tile.getResource(), 1);
             std::cout << "Player " << p->getName() << " got 1 " << tile.getResource() << std::endl;
         }
+    }
+
+    void Catan::collectResources(int diceResult) {
+        for(auto &player : players) {
+            if(player->getSettlementsSize() > 0) {
+                for(size_t i = 0; i < player->getSettlementsSize(); i++){
+                    std::vector<Tile> adjTiles = getAdjTiles(player->getSettlements()[i]);
+                    for(auto tile : adjTiles) {
+                        if(tile.getTileNum() == diceResult) {
+                            if(player->getSettlements()[i]->isUpgraded()){
+                                player->setResources(tile.getResource(), 2);
+                                std::cout << "Player " << player->getName() << " got 2 " << tile.getResource() << std::endl;
+                            } else {
+                            player->setResources(tile.getResource(), 1);
+                            std::cout << "Player " << player->getName() << " got 1 " << tile.getResource() << std::endl; 
+                            }
+                        }
+                    }
+                }
+               
+            }
+        }
+    }
+
+    developmentCard* Catan::pickDevelopmentCard(){
+        int random = rand() % developmentCards.size();
+        developmentCard* card = developmentCards[random];
+        developmentCards.erase(developmentCards.begin() + random);
+        return card;
+    }
+
+    void Catan::printWinner() {
+        int maxPoints = 10;
+        std::string winner = "";
+        for(auto &player : players) {
+            if(player->getPoints() == maxPoints) {
+                winner = player->getName();
+            }
+        }
+        std::cout << "The winner is: " << winner << " with " << maxPoints << " points!" << std::endl;
     }
 }

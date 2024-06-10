@@ -41,4 +41,8 @@ namespace ariel {
         }
         return  "NONE";
     }
+
+    int Tile::getTileNum(){
+        return this->number;
+    }
 }

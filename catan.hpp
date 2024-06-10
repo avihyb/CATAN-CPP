@@ -6,7 +6,7 @@
 #include "vertex.hpp"
 #include "edge.hpp"
 #include "tile.hpp"
-
+#include "developmentCard.hpp"
 
 namespace ariel {
     class Player;
@@ -18,6 +18,7 @@ namespace ariel {
             std::vector<Vertex> vertices;
             int currentPlayer;
             bool firstRound;
+            std::vector<developmentCard*> developmentCards;
 
         public:
             Catan(Player* p1, Player* p2, Player* p3);
@@ -25,7 +26,7 @@ namespace ariel {
             std::vector<Vertex> getVertices();
             std::vector<Edge> getEdges();
             void chooseStartingPlayer();
-           // void printWinner();
+            void printWinner();
             Vertex* getVertex(int v);
             Edge* getEdge(int v, int u);
             void nextTurn();
@@ -34,6 +35,8 @@ namespace ariel {
             bool isFirstRound();
             std::vector<Tile> getAdjTiles(Vertex* v);
             void getResources(Player* p);
+            void collectResources(int diceResult);
+            developmentCard* pickDevelopmentCard();
             
     };
 }

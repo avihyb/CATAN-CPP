@@ -12,6 +12,8 @@
 #include "edge.hpp"
 #include "tile.hpp"
 
+
+
 using namespace std;
 using namespace ariel;
 
@@ -66,12 +68,26 @@ int main()
     }
     p3.placeRoad({9,10}, catan);
     p3.placeSettlement({13,14}, catan);
+    try{ p3.endTurn(catan); }
+    catch(const std::exception &e) { // should print "You need to build a road first!"
+        std::cerr << " - " << e.what() << std::endl;
+    }
     p3.placeRoad({13,14}, catan);
     p3.endTurn(catan);
 
     //catan.currentTurn(); // should print the name of the current player, it should be Amit again after a full round.
 
+    //p1.printPlayerStats();
+
+    p1.rollDice(catan);
+    p1.endTurn(catan);
+    p2.rollDice(catan);
+    p2.endTurn(catan);
+    p3.rollDice(catan);
+    p3.endTurn(catan);
+    p1.rollDice(catan);
     p1.printPlayerStats();
+    p1.buyDevelopmentCard(catan);
 
     return 0;
 }

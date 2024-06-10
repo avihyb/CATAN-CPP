@@ -5,6 +5,7 @@
 #include "catan.hpp"
 #include "vertex.hpp"
 #include "edge.hpp"
+#include "developmentCard.hpp"
 
 #include <string>
 #include <vector>
@@ -21,6 +22,8 @@ namespace ariel{
             std::vector<Edge*> roads; // vector of the player's roads
             bool turn; // true if it's the player's turn, false otherwise
             std::map<std::string, int> resources; // map of the player's resources
+            bool hasDevelopmentCard; // true if the player has a development card, false otherwise
+            std::vector<developmentCard*> developmentCards; // vector of the player's development cards
             
             
         public:
@@ -30,10 +33,9 @@ namespace ariel{
             void printPoints(); // Prints player's points
             void placeSettlement(const std::vector<int>& placesNum, Catan& catan);
             void placeRoad(const std::vector<int>& placesNum, Catan& catan);
-            void rollDice(); // Simulates rolling a dice
+            void rollDice(Catan& catan); // Simulates rolling a dice
             void endTurn(Catan& catan); // Ends the turn of the player
-            void trade(Player& otherPlayer, std::string resourceA, std::string resourceB, int amountA, int amountB); // Trades resources with another player
-            void buyDevelopmentCard(); // Buys a development card
+            void buyDevelopmentCard(Catan& catan); // Buys a development card
             bool isValidPlaces(const std::vector<int>& placesNum);
             void setTurn(bool turn);
             void printPlayerStats();
@@ -42,6 +44,12 @@ namespace ariel{
             std::vector<Vertex*> getSettlements();
             std::vector<Edge*> getRoads();
             void setResources(std::string resource, int amount);
+            int getPoints();
+            void trade(Player& otherPlayer, std::string resourceA, std::string resourceB, int amountA, int amountB);
+            void buyKnightsCard();
+            void buyPromotionCard();
+            void buyVictoryCard();
+            void upgradeSettlement(int vertexNum, Catan& catan);
     };
 }
 #endif

@@ -9,6 +9,7 @@ namespace ariel{
             int vertexNum;
             bool settlement;
             std::string owner;
+            bool upgraded;
             
         public:
             Vertex(int vertexNum);
@@ -16,6 +17,8 @@ namespace ariel{
             void buildSettlement(const std::string& playerName);
             bool hasSettlement();
             std::string getOwner();
+            void upgradeSettlement();
+            bool isUpgraded();
     };
 }
 

@@ -20,6 +20,7 @@ namespace ariel{
             Tile(std::string resource, int number, std::vector<Vertex*> vertcies, std::vector<Edge*> edges);
             std::vector<Vertex*> getVertices();
             std::string getResource();
+            int getTileNum();
             
         
             

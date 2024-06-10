@@ -24,4 +24,12 @@ namespace ariel {
     std::string Vertex::getOwner() {
         return this->owner;
     }
+
+    void Vertex::upgradeSettlement() {
+        this->upgraded = true;
+    }
+
+    bool Vertex::isUpgraded() {
+        return this->upgraded;
+    }
 }

@@ -80,7 +80,7 @@ namespace ariel {
         }
     }
 
-    void Player::rollDice() {
+    void Player::rollDice(Catan& catan) {
         // Seed the random number generator with a random device
         if(!this->turn){
             throw std::invalid_argument("It's not your turn!");
@@ -97,7 +97,8 @@ namespace ariel {
         int total = die1 + die2;
 
         // Output the result
-        std::cout << "Rolled a " << die1 << " and a " << die2 << " for a total of " << total << std::endl;
+        std::cout << this->name << " Rolled a " << die1 << " and a " << die2 << " for a total of " << total << std::endl;
+        catan.collectResources(total);
         
     }   
 
@@ -110,6 +111,7 @@ namespace ariel {
             throw std::invalid_argument("You need to place two settlements before ending your turn!");
             }
         }
+        
 
         this->turn = false;
         std::cout << this->name << " has ended their turn." << std::endl;
@@ -118,17 +120,8 @@ namespace ariel {
 
     }
 
-    void Player::trade(Player& otherPlayer, std::string resourceA, std::string resourceB, int amountA, int amountB) {
-        if(!this->turn){
-            throw std::invalid_argument("It's not your turn!");
-        }
-    }
 
-    void Player::buyDevelopmentCard() {
-        if(!this->turn){
-            throw std::invalid_argument("It's not your turn!");
-        }
-    }
+
 
     bool Player::isValidPlaces(const std::vector<int>& placesNum) {
         if(placesNum.size() != 2) {
@@ -182,5 +175,52 @@ namespace ariel {
 
     void Player::setResources(std::string resource, int amount) {
         resources[resource] += amount;
+    }
+
+    int Player::getPoints() {
+        return this->points;
+    }
+
+    void Player::trade(Player& otherPlayer, std::string resourceA, std::string resourceB, int amountA, int amountB) {
+        if(!this->turn){
+            throw std::invalid_argument("It's not your turn!");
+        }
+
+        if(this->resources[resourceA] < amountA || otherPlayer.resources[resourceB] < amountB) {
+            throw std::invalid_argument("You don't have enough resources to trade!");
+        }
+
+        this->resources[resourceA] -= amountA;
+        this->resources[resourceB] += amountB;
+        otherPlayer.resources[resourceA] += amountA;
+        otherPlayer.resources[resourceB] -= amountB;
+
+        std::cout << this->name << " has traded " << amountA << " " << resourceA << " for " << amountB << " " << resourceB << " with " << otherPlayer.getName() << std::endl;
+
+    }
+
+    void Player::buyDevelopmentCard(Catan& catan) {
+        if(!this->turn){
+            throw std::invalid_argument("It's not your turn!");
+        }
+
+        // if(this->resources["ORE"] < 1 || this->resources["WHEAT"] < 1 || this->resources["SHEEP"] < 1) {
+        //     throw std::invalid_argument("You don't have enough resources to buy a development card!");
+        // }
+
+        this->resources["ORE"]--;
+        this->resources["WHEAT"]--;
+        this->resources["SHEEP"]--;
+
+        this->hasDevelopmentCard = true;
+        developmentCard* c = catan.pickDevelopmentCard();
+        
+        std::cout << this->name << " has picked " << std::endl;
+        this->developmentCards.push_back(c);
+        
+        
+
+        std::cout << this->name << " has bought a development card!" << std::endl;
+
     }
 }
