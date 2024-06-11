@@ -204,9 +204,9 @@ namespace ariel {
             throw std::invalid_argument("It's not your turn!");
         }
 
-        // if(this->resources["ORE"] < 1 || this->resources["WHEAT"] < 1 || this->resources["SHEEP"] < 1) {
-        //     throw std::invalid_argument("You don't have enough resources to buy a development card!");
-        // }
+        if(this->resources["ORE"] < 1 || this->resources["WHEAT"] < 1 || this->resources["SHEEP"] < 1) {
+            throw std::invalid_argument("You don't have enough resources to buy a development card!");
+        }
 
         this->resources["ORE"]--;
         this->resources["WHEAT"]--;

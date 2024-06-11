@@ -87,7 +87,7 @@ int main()
     p3.endTurn(catan);
     p1.rollDice(catan);
     p1.printPlayerStats();
-    p1.buyDevelopmentCard(catan);
+    
 
     return 0;
 }
