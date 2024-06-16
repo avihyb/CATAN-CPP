@@ -286,6 +286,7 @@ namespace ariel {
     developmentCard* Catan::pickDevelopmentCard(){
         int random = rand() % developmentCards.size();
         developmentCard* card = developmentCards[random];
+        std::cout << "Player " << players[currentPlayer]->getName() << " picked " << card << std::endl;
         developmentCards.erase(developmentCards.begin() + random);
         return card;
     }
